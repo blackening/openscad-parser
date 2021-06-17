@@ -118,6 +118,11 @@ enum TokenType {
   Percent,
 
   /**
+   * Caret: ^
+   */
+  Caret,
+
+  /**
    * Left parenthesis: (
    */
   LeftParen,

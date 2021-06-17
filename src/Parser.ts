@@ -700,6 +700,7 @@ export default class Parser {
     }
     return expr;
   }
+
   protected addition(): Expression {
     let expr = this.multiplication();
     while (this.matchToken(TokenType.Plus, TokenType.Minus)) {
@@ -724,6 +725,7 @@ export default class Parser {
     }
     return expr;
   }
+
   /**
    * Parses +expr, -expr and !expr.
    */
@@ -735,7 +737,27 @@ export default class Parser {
         operator,
       });
     }
-    return this.memberLookupOrArrayLookup();
+    return this.exponentiation();
+  }
+
+  /**
+   * Parses expr ^ expr.
+   */
+  protected exponentiation(): Expression {
+    // Above should have eaten all the front exprs.
+    let expr = this.memberLookupOrArrayLookup();
+    while (
+      this.matchToken(
+        TokenType.Caret
+      )
+    ) {
+      const operator = this.previous();
+      const right = this.unary(); // RHS might still have unary op. e.g. -2^-2 = -0.25
+      expr = new BinaryOpExpr(this.getLocation(), expr, operator.type, right, {
+        operator,
+      });
+    }
+    return expr;
   }
   protected memberLookupOrArrayLookup() {
     let expr = this.primary();

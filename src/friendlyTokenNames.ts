@@ -5,6 +5,7 @@ export default {
   [TokenType.Assert]: "'assert' (Assert)",
   [TokenType.Bang]: "'!' (Bang)",
   [TokenType.BangEqual]: "'!=' (BangEqual)",
+  [TokenType.Caret]: "'^' (Caret)",
   [TokenType.Colon]: "':' (Colon)",
   [TokenType.Comma]: "',' (Comma)",
   [TokenType.Dot]: "'.' (Dot)",
